@@ -1,47 +1,63 @@
-# python-pki-tls-framework
-Hierarchical PKI and mutual TLS (mTLS) lab framework in Python demonstrating Root CA, Intermediate CA, certificate chain generation, and secure client-server authentication.
-
-
-
-
-
 # Python PKI & mTLS Framework
 
 ## Overview
 
-This project demonstrates a hierarchical Public Key Infrastructure (PKI) implementation and secure communication modeling using Python.
+This project demonstrates a hierarchical Public Key Infrastructure (PKI) implementation along with secure client-server communication using mutual TLS (mTLS) in Python.
 
-The framework includes:
+It models a realistic certificate trust chain:
 
 - Root Certificate Authority (CA)
 - Intermediate Certificate Authority
 - End-Entity (ECU-style) certificate
-- Proper X.509 extensions
-- KeyUsage and BasicConstraints enforcement
+- Secure TLS client-server authentication
 
-This project is intended for educational and security research purposes.
+This repository is intended for educational and security research purposes.
 
 ---
 
+## Project Structure
+
+```
+python-pki-tls-framework/
+│
+├── pki/                  # Certificate hierarchy generation
+│   └── pki_generator.py
+│
+├── tls/                  # Secure mTLS communication
+│   ├── tls_server.py
+│   └── tls_client.py
+│
+├── certs/                # Generated certificates (ignored by git)
+├── requirements.txt
+├── .gitignore
+└── README.md
+```
+
 ## Architecture
 
-Root CA (Trust Anchor)
-    ↓
-Intermediate CA
-    ↓
-End Entity Certificate (ECU Client)
+Root CA (Trust Anchor)  
+        ↓  
+Intermediate CA  
+        ↓  
+End-Entity Certificate (ECU Client / Server)
 
-The hierarchy models real-world certificate trust chains used in secure systems.
+The Root CA signs the Intermediate CA.  
+The Intermediate CA signs the end-entity certificate.  
+The TLS server and client authenticate each other using this trust chain.
 
 ---
 
 ## Features
 
-- RSA 2048 key generation
+- RSA 2048-bit key generation
 - SHA-256 certificate signing
-- Hierarchical trust modeling
-- Secure extension configuration
-- Certificate storage in PEM format
+- Proper X.509 extensions:
+  - BasicConstraints
+  - KeyUsage
+- Certificate hierarchy modeling
+- Mutual TLS (mTLS) authentication
+- TLS minimum version enforcement
+- Secure key management practices
 
 ---
 
@@ -49,3 +65,4 @@ The hierarchy models real-world certificate trust chains used in secure systems.
 
 ```bash
 pip install cryptography
+```
