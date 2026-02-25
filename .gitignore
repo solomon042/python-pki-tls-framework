@@ -3,6 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# PKI Generated Certificates (DO NOT COMMIT)
+certs/
+*.pem
+*.key
+*.csr
+
 # C extensions
 *.so
 
